@@ -55,7 +55,7 @@ fun LI.todoItem(storage: StorageService, task: Task, block: DIV.() -> Unit) {
                 checked = task.isDone
             }
             label {
-                for_ = inputId
+                htmlFor = inputId
                 +"Done"
                 onClickFunction = markAsDone(storage, task)
             }

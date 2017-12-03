@@ -1,11 +1,13 @@
 (function (_, Kotlin) {
   'use strict';
   var println = Kotlin.kotlin.io.println_s8jyv4$;
+  var toString = Kotlin.toString;
   var Unit = Kotlin.kotlin.Unit;
+  var Kind_CLASS = Kotlin.Kind.CLASS;
   var toList = Kotlin.kotlin.collections.toList_7wnvza$;
   function main$lambda(closure$port) {
     return function () {
-      println('Example app listening on port ' + Kotlin.toString(closure$port) + '!');
+      println('Example app listening on port ' + toString(closure$port) + '!');
       return Unit;
     };
   }
@@ -47,7 +49,7 @@
     this.isArchived = true;
   };
   Task.$metadata$ = {
-    kind: Kotlin.Kind.CLASS,
+    kind: Kind_CLASS,
     simpleName: 'Task',
     interfaces: []
   };

@@ -71,7 +71,7 @@ class Todo(var formContainer: HTMLDivElement) {
                                         onInputFunction = onInput()
                                     }
                                     label("active") {
-                                        for_ = "icon_prefix"
+                                        htmlFor = "icon_prefix"
                                         +"add a new task"
                                     }
                                 }

@@ -2,16 +2,15 @@ group 'com.techprd'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'kotlin2js'
+apply plugin: 'com.moowork.node'
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
-    //testCompile group: 'junit', name: 'junit', version: '4.11'
+    testCompile "org.jetbrains.kotlin:kotlin-test-js"
 }
 
-
-sourceSets {
-    main.resources.srcDirs += "resources"
-    main.kotlin.srcDirs += "src"
+[compileKotlin2Js, compileTestKotlin2Js]*.configure {
+    kotlinOptions.moduleKind = "commonjs"
 }
 
 compileKotlin2Js {
@@ -19,3 +18,28 @@ compileKotlin2Js {
     kotlinOptions.moduleKind = "commonjs"
     kotlinOptions.sourceMap = true
 }
+
+task populateNodeModules(type: Copy, dependsOn: compileKotlin2Js) {
+    from compileKotlin2Js.destinationDir
+
+    configurations.testCompile.each {
+        from zipTree(it.absolutePath).matching { include '*.js' }
+    }
+
+    into "${buildDir}/node_modules"
+}
+
+node {
+    download = true
+}
+
+task installJasmine(type: NpmTask) {
+    args = ['install', 'jasmine']
+}
+
+task runJasmine(type: NodeTask, dependsOn: [compileTestKotlin2Js, populateNodeModules, installJasmine]) {
+    script = file('node_modules/.bin/jasmine')
+    args = [compileTestKotlin2Js.outputFile]
+}
+
+test.dependsOn runJasmine

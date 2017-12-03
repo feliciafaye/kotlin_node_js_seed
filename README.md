@@ -21,15 +21,29 @@ This project is an application skeleton for a typical Node.js app written entire
 ### How to Use:
 
 #### Install Node dependencies
-`$ npm install`
+```bash
+$ npm install
+```
 
 #### Compile Kotlin  to JS using gradle
 
-`$ ./gradlew build`
+```bash
+$ ./gradlew build
+```
+
+### Run Tests
+ * Test are written in Kotlin Unit test 
+ then compiled to Javascript and run using Jasmine framework
+ 
+```bash
+$ ./gradlew test 
+```
 
 #### Run Server
 
-`$ npm start`
+```bash
+$ npm start
+```
 
 #### Kotlin official site
 https://kotlinlang.org/docs/reference/js-overview.html
